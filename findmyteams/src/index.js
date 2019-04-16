@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 const App = () => {
     return (
         <div>
-            Test index
+            LOVE SOCCER? ME TOO!
         </div>
     );
 };
