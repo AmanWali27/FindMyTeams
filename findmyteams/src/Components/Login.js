@@ -13,25 +13,20 @@ class Login extends React.Component {
         auth: false,
     }
 
-    uiConfig = {
-        // Popup signin flow rather than redirect flow.
-        signInFlow: 'popup',
-        // We will display Google and Facebook as auth providers.
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            //firebase.auth.FacebookAuthProvider.PROVIDER_ID
-        ],
-        callbacks: {
-            // Avoid redirects after sign-in.
-            signInSuccessWithAuthResult: () => false
-        }
-    };
-
     componentDidMount() {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
             (user) => this.setState({auth: !!user})
         );
     }
+
+    signIn = (event) => {
+        console.log(event);
+        event.preventDefault();
+        const prv=new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(prv)
+            .then(function (result ){
+            })
+    };
 
 
     render () {
@@ -39,7 +34,7 @@ class Login extends React.Component {
             return (
                 <div>
                     <h1>Click below to sign-in</h1>
-                    <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
+                    <button onClick={this.signIn.bind(this)}>SIGN IN</button>
                 </div>
             );
         }
