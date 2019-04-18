@@ -1,51 +1,61 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import firebase from 'firebase';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-
-firebase.initializeApp({
-    apiKey: "AIzaSyB_VMuH0KADB_BvF_LyXqmC8zTHqEOhPe4",
-    authDomain: "findmyteams-19b7a.firebaseapp.com",
-});
+import { auth, googleProvider } from './../fbase';
 
 class Login extends React.Component {
-    state = {
-        auth: false,
+    constructor(props) {
+        super(props);
+        const userr = JSON.parse(localStorage.getItem('user'));
+        this.state = {auth: false, user: userr ||  {}};
     }
 
     componentDidMount() {
-        this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-            (user) => this.setState({auth: !!user})
-        );
+        this.unregisterAuthObserver = auth.onAuthStateChanged(
+            (user) => {
+                if (user) {
+                    const USER = {
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        email: user.email,
+                    };
+                    this.setState({auth: true});
+                    this.setState({user: user});
+                    localStorage.setItem('user', JSON.stringify(USER))
+                } else {
+                    this.setState({user: {}})
+                    localStorage.removeItem('user');
+                    this.setState({auth: false});
+                }
+            })
     }
 
     signIn = (event) => {
         console.log(event);
         event.preventDefault();
-        const prv=new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(prv)
+        //const prv=new auth.GoogleAuthProvider();
+        const prv = googleProvider;
+        auth.signInWithPopup(prv)
             .then(function (result ){
+                return (
+                    <Redirect to="/home"/>
+                );
             })
     };
 
 
     render () {
-        if (!this.state.auth) {
+        if (this.state.user.uid) {
             return (
                 <div>
-                    <h1>Click below to sign-in</h1>
-                    <button onClick={this.signIn.bind(this)}>SIGN IN</button>
+                    <Redirect to="/home"/>
                 </div>
             );
         }
         return (
             <div>
-                You are already signed in
-                <Link to="/home">
-                    <button>
-                        Click to go to Home page
-                    </button>
-                </Link>
+                <h1>Click below to sign-in</h1>
+                <button onClick={this.signIn.bind(this)}>SIGN IN</button>
             </div>
         );
     }
