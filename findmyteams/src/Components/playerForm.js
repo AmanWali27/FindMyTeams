@@ -2,8 +2,7 @@ import React from 'react';
 import {auth, db} from './../fbase';
 import { Form } from 'react-final-form';
 import { Field } from 'react-final-form-html5-validation';
-import {Redirect} from 'react-router-dom';
-import "./Err.css";
+import {Redirect} from 'react-router-dom'
 
 function validate(name, sport, lookingFor) {
     return {
@@ -13,7 +12,7 @@ function validate(name, sport, lookingFor) {
     };
 }
 
-class addForm extends React.Component{
+class playerForm extends React.Component{
     constructor(props) {
         super(props);
         const userr = JSON.parse(localStorage.getItem('user'));
@@ -21,13 +20,11 @@ class addForm extends React.Component{
             auth: false,
             user: userr ||  {},
             name: "",
-            teamName: "",
             sport: "",
             lookingFor: "",
             info: "",
             uid: '',
         };
-
     }
 
     componentWillMount() {
@@ -61,11 +58,6 @@ class addForm extends React.Component{
         this.setState({name: event.target.value})
     }
 
-    onChangeTeam (event) {
-        console.log(event.target.value);
-        this.setState({teamName: event.target.value});
-    }
-
     onChangeSport(event) {
         console.log(event.target.value);
         this.setState({sport: event.target.value})
@@ -88,13 +80,12 @@ class addForm extends React.Component{
         // db.ref('Users').set({
         //     FOOD: ""
         // });
-        const refPush = db.ref("Posts/Teams/").push()
+        const refPush = db.ref("Posts/Players/").push()
         const uniKey = refPush.key;
-        const userRef = db.ref("Posts/Teams/" + uniKey + "/");
+        const userRef = db.ref("Posts/Players/" + uniKey + "/");
         userRef.set(
             {
                 name: this.state.name,
-                teamName: this.state.teamName,
                 sport: this.state.sport,
                 lookingFor: this.state.lookingFor,
                 info: this.state.info,
@@ -141,60 +132,49 @@ class addForm extends React.Component{
                             <div className="required field">
                                 <label>Your name: </label>
                                 <input
-                                    className={errors.name? ".error": ""}
                                     type="text"
                                     placeholder="eg: John"
                                     value={this.state.name}
                                     onChange={this.onChangeName.bind(this)}
                                 />
                             </div>
-                            <div className="field">
-                                <label>Team name: </label>
-                                <input
-                                    type="text"
-                                    placeholder="eg: Rockets"
-                                    value={this.state.teamName}
-                                    onChange={this.onChangeTeam.bind(this)}
-                                />
-                            </div>
                             <div className="required field">
-                                <label>Sport:</label>
+                                <label>Sport: </label>
                                 <input
                                     type="text"
-                                    placeholder="eg: Basketball"
+                                    placeholder="eg: Soccer"
                                     value={this.state.sport}
                                     onChange={this.onChangeSport.bind(this)}
                                 />
                             </div>
                             <div className="required field">
-                                <label>Looking for:</label>
+                                <label>Preferred role: </label>
                                 <input
                                     type="text"
-                                    placeholder="eg: Point guard/2 players"
+                                    placeholder="eg: Can play as a centre-back"
                                     value={this.state.lookingFor}
                                     onChange={this.onChangeLooking.bind(this)}
                                 />
                             </div>
                             <div>
-                                <label>Additional info:</label>
+                                <label>Additional info: </label>
                                 <textarea
-                                    placeholder="eg: We play at the Co-rec on Tuesdays at 9pm"
+                                    placeholder="eg: Free on Friday and Saturday evenings"
                                     value={this.state.info}
                                     onChange={this.onChangeInfo.bind(this)}
                                 />
                             </div>
                             <div className="buttons">
                                 <button
-                                    disabled={isDisabled}
+                                    type="submit"
                                     className="ui green button"
-                                    type="submit">
+                                    disabled={isDisabled}>
                                     Submit
                                 </button>
                                 <button
-                                    className="ui button"
                                     type="button"
-                                    onClick={this.handleReset}
-                                >
+                                    className="ui button"
+                                    onClick={this.handleReset}>
                                     Reset
                                 </button>
                             </div>
@@ -206,4 +186,4 @@ class addForm extends React.Component{
     }
 }
 
-export default addForm;
+export default playerForm;

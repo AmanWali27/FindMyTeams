@@ -69,7 +69,13 @@ class Login extends React.Component {
         return (
             <div>
                 <h1>Click below to sign-in</h1>
-                <button onClick={this.signIn.bind(this)}>SIGN IN</button>
+                <button
+                    onClick={this.signIn.bind(this)}
+                    className="ui labelled icon button"
+                >
+                    <i className="large  google icon"></i>
+                    SIGN IN
+                </button>
             </div>
         );
     }

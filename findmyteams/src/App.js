@@ -5,6 +5,9 @@ import Home from './Components/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import { auth } from './fbase'
 import addForm from './Components/Form';
+import playerForm from './Components/playerForm';
+import playerCard from './Components/playerCard';
+import temp from './Components/temp';
 
 class App extends React.Component{
     constructor(props) {
@@ -61,6 +64,22 @@ class App extends React.Component{
                                 exact={true}
                                 component={addForm}
                                 user={this.state.user}
+                            />
+                            <PrivateRoute
+                                path='/plform'
+                                exact={true}
+                                component={playerForm}
+                                user={this.state.user}
+                            />
+                            <Route
+                                path='/card'
+                                exact
+                                component={playerCard}
+                            />
+                            <Route
+                                path='/temp'
+                                exact
+                                component={temp}
                             />
                         </Switch>
                     </div>
