@@ -4,7 +4,7 @@ import Login from './Components/Login';
 import Home from './Components/Home';
 import PrivateRoute from './Components/PrivateRoute';
 import { auth } from './fbase'
-import form from './Components/Form';
+import addForm from './Components/Form';
 
 class App extends React.Component{
     constructor(props) {
@@ -59,7 +59,7 @@ class App extends React.Component{
                             <Route
                                 path='/form'
                                 exact
-                                component={form}
+                                component={addForm}
                             />
                         </Switch>
                     </div>
