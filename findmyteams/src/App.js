@@ -56,10 +56,11 @@ class App extends React.Component{
                                 component={Home}
                                 user= {this.state.user}
                             />
-                            <Route
+                            <PrivateRoute
                                 path='/form'
-                                exact
+                                exact={true}
                                 component={addForm}
+                                user={this.state.user}
                             />
                         </Switch>
                     </div>

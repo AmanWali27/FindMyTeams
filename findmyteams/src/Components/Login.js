@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 import firebase from 'firebase';
-import { auth, googleProvider } from './../fbase';
+import { auth, googleProvider, db } from './../fbase';
 
 class Login extends React.Component {
     constructor(props) {
@@ -22,6 +22,19 @@ class Login extends React.Component {
                     this.setState({auth: true});
                     this.setState({user: user});
                     localStorage.setItem('user', JSON.stringify(USER))
+                    const u=user.uid;
+                    const userRef = firebase.database().ref("Users/" + u + "/");
+
+                    userRef.set({
+                        email: user.email,
+                        name: user.displayName,
+                        uid: u
+                    }).then((data) => {
+                        console.log('Synchronization succeeded');
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+
                 } else {
                     this.setState({user: {}})
                     localStorage.removeItem('user');
@@ -29,6 +42,7 @@ class Login extends React.Component {
                 }
             })
     }
+
 
     signIn = (event) => {
         console.log(event);
