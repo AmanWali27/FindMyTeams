@@ -2,6 +2,10 @@ import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 import firebase from 'firebase';
 import { auth, googleProvider, db } from './../fbase';
+import "./Login.css";
+import styles from './background';
+import "./Styles.css";
+import Paper from '@material-ui/core/Paper';
 
 class Login extends React.Component {
     constructor(props) {
@@ -58,6 +62,7 @@ class Login extends React.Component {
     };
 
 
+
     render () {
         if (this.state.user.uid) {
             return (
@@ -67,16 +72,29 @@ class Login extends React.Component {
             );
         }
         return (
-            <div>
-                <h1>Click below to sign-in</h1>
-                <button
-                    onClick={this.signIn.bind(this)}
-                    className="ui labelled icon button"
-                >
-                    <i className="large  google icon"></i>
-                    SIGN IN
-                </button>
-            </div>
+            <Paper style={styles.paperContainer}>
+                <div className="center-screen">
+                    <div className="ui raised very padded text container segment">
+                        <img className="ui fluid top aligned Massive image" src={require('./../images/fancycrave-284243-unsplash.jpg')} alt="SPORTS" />
+                        <div style={{paddingTop:5}}>
+                        </div>
+                        <div>
+                            <h2 className="ui horizontal divider teal header">
+                                FindMyTeams
+                            </h2>
+                            <div className="ui floating message">
+                                <p>A social website for everyone that loves sports! Find someone to play
+                                    with so you're never forced to be lazy.
+                                </p>
+                            </div>
+                            <button className="ui google plus button">
+                                <i className="google icon"></i>
+                                Google sign-in
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Paper>
         );
     }
 }
