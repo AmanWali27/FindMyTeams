@@ -16,7 +16,9 @@ class Home extends React.Component {
             user: userr ||  {},
             player: true,
             players: [],
-            teams: []
+            teams: [],
+            posts: {},
+            loaded: false
         };
     }
 
@@ -41,8 +43,10 @@ class Home extends React.Component {
         firebase.database().ref('/Posts/').once('value').then(response => {
             this.setState({players: response.val().Players})
             this.setState({teams: response.val().Teams})
+            this.setState({posts: response.val()})
             // console.log(response.val().Players)
         });
+        this.setState({loaded: true})
         // console.log(this.state.players);
     }
 
@@ -52,6 +56,7 @@ class Home extends React.Component {
         if(this.state.player === false) {
             this.setState({player: true})
         }
+        console.log(this.state.posts)
     };
 
     onTeamClicked = () => {
@@ -63,16 +68,46 @@ class Home extends React.Component {
 
     loadPlayers = () => {
         console.log("about to load players")
+        let arr= this.state.players;
+        console.log("pre-arr is ");
+        console.log(arr);
+        // arr = Array.from(arr);
+        // console.log("arr is ");
+        // console.log(arr);
+        let items =[];
+        if(this.state.loaded === false){
+            console.log("false")
+        }else {
+            // return (
+            //     <PlayerCard/>
+            // )
+            return Object.keys(arr).map(function(keyName, keyIndex) {
+                // console.log("Iterating");
+                // console.log(arr[keyName]);
+                // {PlayerCard(arr[keyName])}
+                return (
+                        <PlayerCard obj={arr[keyName]}/>
+                );
+                // use keyName to get current key's name
+                // and a[keyName] to get its value
+            })
+                //     console.log("pre-Iterating")
+                //     items = arr.map((item) => {
+                //         console.log("Iterating")
+                //         console.log({item});
+                //     return(
+                //             <li>
+                //                 {item}
+                //             </li>
+                //     );
+                // });
+        }
         return(
             <div>
-                test
+                {items}
             </div>
         );
-        // const items = this.state.players.map((item, key) => {
-        //     return(
-        //         <PlayerCard user={item.name}/>
-        //     );
-        // });
+
         // this.setState({player: true})
     };
 
@@ -83,7 +118,7 @@ class Home extends React.Component {
         if(this.state.player === true){
             return (
                 <div>
-                    {this.loadPlayers}
+                    {this.loadPlayers()}
                 </div>
             );
         }else{
