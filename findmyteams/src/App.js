@@ -8,6 +8,7 @@ import addForm from './Components/Form';
 import playerForm from './Components/playerForm';
 import playerCard from './Components/playerCard';
 import temp from './Components/temp';
+import Header from './Components/Header'
 
 class App extends React.Component{
     constructor(props) {
@@ -75,6 +76,11 @@ class App extends React.Component{
                                 path='/card'
                                 exact
                                 component={playerCard}
+                            />
+                            <Route
+                                path='/header'
+                                exact
+                                component={Header}
                             />
                             <Route
                                 path='/temp'
