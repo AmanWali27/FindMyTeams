@@ -1,10 +1,14 @@
 import React from 'react';
-import { Container, Button, Link } from 'react-floating-action-button'
+import { Container, Button, Link, darkColors, lightColors } from 'react-floating-action-button';
+import Header from './Header';
+import addform from './Form'
+import playerFrom from './playerForm'
 
 const Home = () =>{
     console.log("HELLO");
     return(
         <div>
+            <Header/>
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100px'}}>
             <div className="ui compact menu">
                 <a className="item">
@@ -17,10 +21,19 @@ const Home = () =>{
         </div>
 
             <Container>
+                <Link href={`/form`}
+                      tooltip="Find a Player"
+                      styles={{backgroundColor: lightColors.teal}}
+                      icon="large inverted user icon"/>
+                <Link href={`/plform`}
+                      tooltip="Find a Team"
+                      styles={{backgroundColor: lightColors.teal}}
+                      icon="large inverted users icon" />
                 <Button
-                    tooltip="The big plus button!"
-                    icon="fas fa-plus"
-                    rotate={true}
+                    tooltip="Find players and teams!"
+                    styles={{backgroundColor: darkColors.teal}}
+                    icon="big inverted plus icon"
+                    rotate={false}
                     onClick={() => alert('FAB Rocks!')} />
             </Container>
         </div>
