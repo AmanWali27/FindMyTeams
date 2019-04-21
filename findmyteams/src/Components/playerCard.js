@@ -6,7 +6,7 @@ const PlayerCard = (props) => {
         <div className="ui cards">
             <div className="card">
                 <div className="content">
-                    <div className="header">{props.user.displayName}</div>
+                    <div className="header">{props.user}</div>
                     <div className="meta">Friend</div>
                     <div className="description">
                         Elliot Fu is a film-maker from New York.
