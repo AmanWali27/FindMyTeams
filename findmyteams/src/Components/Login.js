@@ -87,7 +87,9 @@ class Login extends React.Component {
                                     with so you're never forced to be lazy.
                                 </p>
                             </div>
-                            <button className="ui google plus button">
+                            <button
+                                className="ui google plus button"
+                                onClick={this.signIn.bind(this)}>
                                 <i className="google icon"></i>
                                 Google sign-in
                             </button>
