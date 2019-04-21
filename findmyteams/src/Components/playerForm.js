@@ -3,6 +3,7 @@ import {auth, db} from './../fbase';
 import { Form } from 'react-final-form';
 import { Field } from 'react-final-form-html5-validation';
 import {Redirect} from 'react-router-dom'
+import Header from "./Header";
 
 function validate(name, sport, lookingFor) {
     return {
@@ -123,6 +124,7 @@ class playerForm extends React.Component{
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return (
             <div className="form">
+                <Header/>
                 <form className="ui huge form" onSubmit={this.handleSubmit}>
                     <h1 className="ui center aligned dividing header">
                         Fill out this form to find someone to play your sport with!
