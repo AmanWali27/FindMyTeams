@@ -71,60 +71,61 @@ class Home extends React.Component {
         let arr= this.state.players;
         console.log("pre-arr is ");
         console.log(arr);
-        // arr = Array.from(arr);
-        // console.log("arr is ");
-        // console.log(arr);
         let items =[];
         if(this.state.loaded === false){
             console.log("false")
         }else {
-            // return (
-            //     <PlayerCard/>
-            // )
             return Object.keys(arr).map(function(keyName, keyIndex) {
-                // console.log("Iterating");
-                // console.log(arr[keyName]);
-                // {PlayerCard(arr[keyName])}
                 return (
+                    <div>
                         <PlayerCard obj={arr[keyName]}/>
+                    </div>
                 );
-                // use keyName to get current key's name
-                // and a[keyName] to get its value
             })
-                //     console.log("pre-Iterating")
-                //     items = arr.map((item) => {
-                //         console.log("Iterating")
-                //         console.log({item});
-                //     return(
-                //             <li>
-                //                 {item}
-                //             </li>
-                //     );
-                // });
         }
         return(
             <div>
                 {items}
             </div>
         );
-
-        // this.setState({player: true})
     };
 
-    loadTeams = () => {};
+    loadTeams = () => {
+        console.log("about to load teams")
+        let arr= this.state.teams;
+        console.log("pre-arr is ");
+        console.log(arr);
+        let items =[];
+        if(this.state.loaded === false){
+            console.log("false")
+        }else {
+            return Object.keys(arr).map(function(keyName, keyIndex) {
+                return (
+                    <div>
+                        <PlayerCard obj={arr[keyName]}/>
+                    </div>
+                );
+            })
+        }
+        return(
+            <div>
+                {items}
+            </div>
+        );
+    };
 
     retView = () => {
         console.log("retView");
         if(this.state.player === true){
             return (
-                <div>
+                <div className="ui equal width grid">
                     {this.loadPlayers()}
                 </div>
             );
         }else{
             return (
-                <div>
-                    Finding teams
+                <div className="ui stackable equal width grid">
+                    {this.loadTeams()}
                 </div>
             );
         }
