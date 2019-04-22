@@ -94,7 +94,22 @@ class playerForm extends React.Component{
                 rid: uniKey
             }
         ).then((data) => {
-            console.log('Synchronization succeeded');
+            console.log('form sent');
+            //this.props.navigation.navigate('requests')
+        }).catch((error) => {
+            console.log(error)
+        });
+        const refPush2 = db.ref("Posts/PlayerSports/").push()
+        const uniKey2 = refPush2.key;
+        const userRef2 = db.ref("Posts/PlayerSports/" + uniKey2 + "/");
+        userRef2.set(
+            {
+                sport: this.state.sport,
+                uid: u,
+                rid: uniKey2
+            }
+        ).then((data) => {
+            console.log('form sent');
             //this.props.navigation.navigate('requests')
         }).catch((error) => {
             console.log(error)
@@ -119,6 +134,36 @@ class playerForm extends React.Component{
         })
     };
 
+    showNameError = () => {
+        if(this.state.name===""){
+            return (
+                <div className="ui pointing red basic label">
+                    Please enter a value
+                </div>
+            );
+        }
+    }
+
+    showSportError = () => {
+        if(this.state.sport===""){
+            return (
+                <div className="ui pointing red basic label">
+                    Please enter a value
+                </div>
+            );
+        }
+    }
+
+    showLookingError = () => {
+        if(this.state.lookingFor===""){
+            return (
+                <div className="ui pointing red basic label">
+                    Please enter a value
+                </div>
+            );
+        }
+    }
+
     render() {
         const errors = validate(this.state.name, this.state.sport, this.state.lookingFor);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
@@ -139,6 +184,7 @@ class playerForm extends React.Component{
                                     value={this.state.name}
                                     onChange={this.onChangeName.bind(this)}
                                 />
+                                {this.showNameError()}
                             </div>
                             <div className="required field">
                                 <label>Sport: </label>
@@ -148,6 +194,7 @@ class playerForm extends React.Component{
                                     value={this.state.sport}
                                     onChange={this.onChangeSport.bind(this)}
                                 />
+                                {this.showSportError()}
                             </div>
                             <div className="required field">
                                 <label>Preferred role: </label>
@@ -157,6 +204,7 @@ class playerForm extends React.Component{
                                     value={this.state.lookingFor}
                                     onChange={this.onChangeLooking.bind(this)}
                                 />
+                                {this.showLookingError()}
                             </div>
                             <div>
                                 <label>Additional info: </label>

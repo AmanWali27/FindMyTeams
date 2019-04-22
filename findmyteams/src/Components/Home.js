@@ -18,7 +18,10 @@ class Home extends React.Component {
             players: [],
             teams: [],
             posts: {},
-            loaded: false
+            loaded: false,
+            teamSports: [],
+            playerSports: [],
+            sports: []
         };
     }
 
@@ -41,10 +44,13 @@ class Home extends React.Component {
                 }
             });
         firebase.database().ref('/Posts/').once('value').then(response => {
-            this.setState({players: response.val().Players})
-            this.setState({teams: response.val().Teams})
-            this.setState({posts: response.val()})
-            // console.log(response.val().Players)
+            this.setState({
+                players: response.val().Players,
+                teams: response.val().Teams,
+                posts: response.val(),
+                teamSports: response.val().TeamSports,
+                playerSports: response.val().PlayerSports
+            })
         });
         this.setState({loaded: true})
         // console.log(this.state.players);
@@ -54,7 +60,7 @@ class Home extends React.Component {
         console.log(this.state.players);
         console.log("clicked player");
         if(this.state.player === false) {
-            this.setState({player: true})
+            this.setState({player: true, sports: this.state.playerSports})
         }
         console.log(this.state.posts)
     };
@@ -62,7 +68,7 @@ class Home extends React.Component {
     onTeamClicked = () => {
         console.log(this.state.teams);
         if(this.state.player === true) {
-            this.setState({player: false})
+            this.setState({player: false, sports: this.state.teamSports})
         }
     };
 
@@ -73,45 +79,43 @@ class Home extends React.Component {
         console.log(arr);
         let items =[];
         if(this.state.loaded === false){
-            console.log("false")
+            return (
+                <div>
+                    No posts found!
+                </div>
+            );
         }else {
             return Object.keys(arr).map(function(keyName, keyIndex) {
                 return (
                     <div>
-                        <PlayerCard obj={arr[keyName]}/>
+                        <PlayerCard obj={arr[keyName]} meta="Player"/>
                     </div>
                 );
             })
         }
-        return(
-            <div>
-                {items}
-            </div>
-        );
     };
 
     loadTeams = () => {
-        console.log("about to load teams")
+        console.log("about to load teams");
         let arr= this.state.teams;
         console.log("pre-arr is ");
         console.log(arr);
         let items =[];
         if(this.state.loaded === false){
-            console.log("false")
+            return (
+                <div>
+                    No posts found!
+                </div>
+            );
         }else {
             return Object.keys(arr).map(function(keyName, keyIndex) {
                 return (
                     <div>
-                        <PlayerCard obj={arr[keyName]}/>
+                        <PlayerCard obj={arr[keyName]} meta="Team"/>
                     </div>
                 );
             })
         }
-        return(
-            <div>
-                {items}
-            </div>
-        );
     };
 
     retView = () => {
@@ -147,6 +151,17 @@ class Home extends React.Component {
                             className="link item">
                             Find a Team
                         </button>
+                    </div>
+                    <div className="ui compact menu">
+                        <div className="ui simple dropdown item">
+                            Sort by:
+                            <i className="dropdown icon"></i>
+                            <div className="menu">
+                                <div className="item">Choice 1</div>
+                                <div className="item">Choice 2</div>
+                                <div className="item">Choice 3</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

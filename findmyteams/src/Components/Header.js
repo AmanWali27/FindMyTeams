@@ -7,8 +7,7 @@ class Header extends React.Component {
     onSignOut = () =>{
         auth.signOut().then((response)=> {
             return (
-                <div>
-                </div>
+                <div></div>
             );
         })
     };

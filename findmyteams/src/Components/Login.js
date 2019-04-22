@@ -34,15 +34,15 @@ class Login extends React.Component {
                         name: user.displayName,
                         uid: u
                     }).then((data) => {
-                        console.log('Synchronization succeeded');
+                        console.log('Logged in');
                     }).catch((error) => {
                         console.log(error)
                     });
 
                 } else {
-                    this.setState({user: {}})
+                    this.setState({user: {}, auth: false})
                     localStorage.removeItem('user');
-                    this.setState({auth: false});
+                    //this.setState({auth: false});
                 }
             })
     }

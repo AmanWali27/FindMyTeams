@@ -19,6 +19,7 @@ class App extends React.Component{
 
     componentWillMount() {
         auth.onAuthStateChanged((user) => {
+            console.log("AUTHCHANGE");
             var curUser = auth.currentUser;
             // console.log(curUser);
             // console.log(JSON.stringify(curUser));
@@ -36,9 +37,9 @@ class App extends React.Component{
                 this.setState({ user: user });
                 localStorage.setItem('user', JSON.stringify(USER))
             } else {
-                this.setState({ user: {} })
+                this.setState({ user: {}, auth: false })
                 localStorage.removeItem('user');
-                this.setState({auth: false});
+                //this.setState({auth: false});
             }
         });
     }
