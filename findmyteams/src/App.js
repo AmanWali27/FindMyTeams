@@ -8,6 +8,7 @@ import addForm from './Components/Form';
 import playerForm from './Components/playerForm';
 import playerCard from './Components/playerCard';
 import temp from './Components/temp';
+import phone from './Components/Phone'
 import Header from './Components/Header';
 
 class App extends React.Component{
@@ -83,6 +84,12 @@ class App extends React.Component{
                                 exact
                                 component={temp}
                             />
+                            <Route
+                                path='/phone'
+                                exact
+                                component={phone}
+                            />
+
                         </Switch>
                     </div>
                 </BrowserRouter>
