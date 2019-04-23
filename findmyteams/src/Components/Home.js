@@ -11,12 +11,12 @@ const Home = () =>{
             <Header/>
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', height: '100px'}}>
             <div className="ui compact menu">
-                <a className="item">
+                <a style={{fontSize:'17px'}} className="item">
                     Find a Player
                 </a>
-                <div className="link item">
+                <a style={{fontSize:'17px'}} className="link item">
                     Find a Team
-                </div>
+                </a>
             </div>
         </div>
 
