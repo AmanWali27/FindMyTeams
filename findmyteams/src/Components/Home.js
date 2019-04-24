@@ -7,6 +7,7 @@ import {auth} from "../fbase";
 import firebase from "firebase";
 import PlayerCard from "./playerCard";
 
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -102,13 +103,13 @@ class Home extends React.Component {
                 if(this.state.filter === "Filters") {
                     return (
                         <div>
-                            <PlayerCard obj={arr[keyName]} meta="Player"/>
+                            <PlayerCard obj={arr[keyName]} meta="Player" edit={false}/>
                         </div>
                     );
                 }else if(this.state.filter === arr[keyName].sport){
                     return (
                         <div>
-                            <PlayerCard obj={arr[keyName]} meta="Player"/>
+                            <PlayerCard obj={arr[keyName]} meta="Player" edit={false}/>
                         </div>
                     );
                 }
@@ -132,13 +133,13 @@ class Home extends React.Component {
                 if(this.state.filter === "Filters") {
                     return (
                         <div>
-                            <PlayerCard obj={arr[keyName]} meta="Team"/>
+                            <PlayerCard obj={arr[keyName]} meta="Team" edit={false}/>
                         </div>
                     );
                 }else if(this.state.filter === arr[keyName].sport){
                     return (
                         <div>
-                            <PlayerCard obj={arr[keyName]} meta="Team"/>
+                            <PlayerCard obj={arr[keyName]} meta="Team" edit={false}/>
                         </div>
                     );
                 }
@@ -163,7 +164,7 @@ class Home extends React.Component {
                 if(this.state.user.uid === arr[keyName].uid)
                 return (
                     <div>
-                        <PlayerCard obj={arr[keyName]} meta="User"/>
+                        <PlayerCard obj={arr[keyName]} meta="Player" edit={true}/>
                     </div>
                 );
             })
@@ -187,7 +188,7 @@ class Home extends React.Component {
                 if(this.state.user.uid === arr[keyName].uid)
                     return (
                         <div>
-                            <PlayerCard obj={arr[keyName]} meta="User"/>
+                            <PlayerCard obj={arr[keyName]} meta="Team" edit={true}/>
                         </div>
                     );
             })

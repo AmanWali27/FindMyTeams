@@ -1,13 +1,44 @@
 import React from 'react';
+import Modal from 'react-awesome-modal';
+import { auth, db } from './../fbase';
 
 class PlayerCard extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible : false
+        }
+    }
+
+    openModal() {
+        if(this.state.visible === false) {
+            this.setState({
+                visible: true
+            });
+        }
+    }
+
+    closeModal() {
+        if(this.state.visible === true) {
+            this.setState({
+                visible: false
+            });
+        }
+    }
 
     additionalInfo = () => {
         console.log(this.props.obj.info);
         if(this.props.obj.info===""){
+            return (
+                <div className="description">
+                    <i className="info circle icon"></i>
+                    Contact for additional info
+                </div>
+            );
         }else{
             return (
                 <div className="description">
+                    <i className="info circle icon"></i>
                     Additional info: {this.props.obj.info}
                 </div>
             );
@@ -40,18 +71,77 @@ class PlayerCard extends React.Component{
         }
     };
 
+    showPhoneNumber = () => {
+        return (
+            <div className="description">
+                <i className="phone icon"></i>
+                Phone number: 1234567890
+            </div>
+        );
+    };
+
     tester = () => {
         console.log("IT CLICKED!!!!!");
     }
 
+    deleteItem = () => {
+        // console.log(this.props.obj);
+        const u=auth.currentUser.uid;
+        const r=this.props.obj.rid;
+        const m=this.props.meta;
+        // console.log(r);
+        // console.log(m);
+        const userRef = db.ref("Posts/" + m + "s/" + r + "/");
+        console.log(userRef);
+        userRef.remove()
+    };
+
+    deleteOrClose = () =>{
+        if(this.props.edit === true){
+            return (
+                <button className="ui align bottom" onClick={this.deleteItem}>
+                    Delete this
+                </button>
+            );
+        }
+        else{
+            return (
+                <a className="ui align bottom" href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>
+            );
+        }
+    };
+
     render () {
         return (
             <div className="ui cards" style={{paddingTop: 5}}>
+                <Modal
+                    visible={this.state.visible}
+                    width="50%"
+                    height="40%"
+                    effect="fadeInUp"
+                    onClickAway={() => this.closeModal()}
+                >
+                    <div className="ui center aligned header">
+                        <h1>{this.props.obj.name}</h1>
+                        <div className="ui large message">
+                            {this.additionalInfo()}
+                        </div>
+                        <div className="ui large message">
+                            {this.showPhoneNumber()}
+                        </div>
+                        {this.deleteOrClose()}
+                        {/*<button className="ui align bottom" onClick={this.deleteItem}>*/}
+                            {/*Delete this*/}
+                        {/*</button>*/}
+                        {/*<a className="ui align bottom" href="javascript:void(0);" onClick={() => this.closeModal()}>Close</a>*/}
+                    </div>
+                </Modal>
                 <div className="ui teal raised card">
                     <div className="ui button"
                          data-inverted=""
                          data-tooltip="Add users to your feed"
                          data-position="top center"
+                         onClick={() => this.openModal()}
                     >
                         <div className="content">
                             <div className="ui center aligned header">
@@ -62,7 +152,7 @@ class PlayerCard extends React.Component{
                             </div>
                             {this.showTeamName()}
                             {this.lookingFor()}
-                            {this.additionalInfo()}
+                            {/*{this.additionalInfo()}*/}
                         </div>
                     </div>
                 </div>
