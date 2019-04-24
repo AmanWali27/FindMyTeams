@@ -21,8 +21,10 @@ class Home extends React.Component {
             loaded: false,
             teamSports: [],
             playerSports: [],
-            sports: []
+            sports: [],
+            filter: "Filters",
         };
+        //this.showSports=this.showSports.bind(this);
     }
 
     componentDidMount() {
@@ -77,7 +79,6 @@ class Home extends React.Component {
         let arr= this.state.players;
         console.log("pre-arr is ");
         console.log(arr);
-        let items =[];
         if(this.state.loaded === false){
             return (
                 <div>
@@ -86,12 +87,20 @@ class Home extends React.Component {
             );
         }else {
             return Object.keys(arr).map(function(keyName, keyIndex) {
-                return (
-                    <div>
-                        <PlayerCard obj={arr[keyName]} meta="Player"/>
-                    </div>
-                );
-            })
+                if(this.state.filter === "Filters") {
+                    return (
+                        <div>
+                            <PlayerCard obj={arr[keyName]} meta="Player"/>
+                        </div>
+                    );
+                }else if(this.state.filter === arr[keyName].sport){
+                    return (
+                        <div>
+                            <PlayerCard obj={arr[keyName]} meta="Player"/>
+                        </div>
+                    );
+                }
+            }, this)
         }
     };
 
@@ -100,7 +109,6 @@ class Home extends React.Component {
         let arr= this.state.teams;
         console.log("pre-arr is ");
         console.log(arr);
-        let items =[];
         if(this.state.loaded === false){
             return (
                 <div>
@@ -109,12 +117,20 @@ class Home extends React.Component {
             );
         }else {
             return Object.keys(arr).map(function(keyName, keyIndex) {
-                return (
-                    <div>
-                        <PlayerCard obj={arr[keyName]} meta="Team"/>
-                    </div>
-                );
-            })
+                if(this.state.filter === "Filters") {
+                    return (
+                        <div>
+                            <PlayerCard obj={arr[keyName]} meta="Team"/>
+                        </div>
+                    );
+                }else if(this.state.filter === arr[keyName].sport){
+                    return (
+                        <div>
+                            <PlayerCard obj={arr[keyName]} meta="Team"/>
+                        </div>
+                    );
+                }
+            }, this)
         }
     };
 
@@ -132,6 +148,55 @@ class Home extends React.Component {
                     {this.loadTeams()}
                 </div>
             );
+        }
+    };
+
+    showSports = () => {
+        console.log("The arr isss");
+        console.log(this.state.playerSports);
+        if(this.state.player === true){
+            let arr= this.state.playerSports;
+            if(this.state.loaded === false){
+                return (
+                    <div>
+                        No posts found!
+                    </div>
+                );
+            }else {
+                return Object.keys(arr).map(function (keyName, keyIndex) {
+                    return (
+                        <div>
+                            <button className="item"
+                                    onClick = { () =>{this.setState({filter: arr[keyName].sport})} }
+                            >
+                                {arr[keyName].sport}
+                            </button>
+                        </div>
+                    );
+                }, this)
+            }
+        }
+        else{
+            let arr= this.state.teamSports;
+            if(this.state.loaded === false){
+                return (
+                    <div>
+                        No posts found!
+                    </div>
+                );
+            }else {
+                return Object.keys(arr).map(function (keyName, keyIndex) {
+                    return (
+                        <div>
+                            <button className="item"
+                                    onClick = { () =>{this.setState({filter: arr[keyName].sport})} }
+                            >
+                                {arr[keyName].sport}
+                            </button>
+                        </div>
+                    );
+                }, this)
+            }
         }
     };
 
@@ -154,12 +219,10 @@ class Home extends React.Component {
                     </div>
                     <div className="ui compact menu">
                         <div className="ui simple dropdown item">
-                            Sort by:
+                            {this.state.filter}
                             <i className="dropdown icon"></i>
                             <div className="menu">
-                                <div className="item">Choice 1</div>
-                                <div className="item">Choice 2</div>
-                                <div className="item">Choice 3</div>
+                                {this.showSports()}
                             </div>
                         </div>
                     </div>
