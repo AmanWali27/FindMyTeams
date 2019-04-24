@@ -40,20 +40,30 @@ class PlayerCard extends React.Component{
         }
     };
 
+    tester = () => {
+        console.log("IT CLICKED!!!!!");
+    }
+
     render () {
         return (
             <div className="ui cards" style={{paddingTop: 5}}>
                 <div className="ui teal raised card">
-                    <div className="content">
-                        <div className="ui center aligned header">
-                            {this.props.obj.name}
+                    <div className="ui button"
+                         data-inverted=""
+                         data-tooltip="Add users to your feed"
+                         data-position="top center"
+                    >
+                        <div className="content">
+                            <div className="ui center aligned header">
+                                {this.props.obj.name}
+                            </div>
+                            <div className="ui center aligned meta">
+                                {this.props.obj.sport}
+                            </div>
+                            {this.showTeamName()}
+                            {this.lookingFor()}
+                            {this.additionalInfo()}
                         </div>
-                        <div className="ui center aligned meta">
-                            {this.props.obj.sport}
-                        </div>
-                        {this.showTeamName()}
-                        {this.lookingFor()}
-                        {this.additionalInfo()}
                     </div>
                 </div>
             </div>
