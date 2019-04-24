@@ -63,7 +63,7 @@ class Home extends React.Component {
         console.log(this.state.players);
         console.log("clicked player");
         if(this.state.player === false || this.state.myPost === true) {
-            this.setState({player: true, sports: this.state.playerSports, myPost: false})
+            this.setState({player: true, sports: this.state.playerSports, myPost: false, filter: "Filters"})
         }
         console.log(this.state.posts)
     };
@@ -71,14 +71,14 @@ class Home extends React.Component {
     onTeamClicked = () => {
         console.log(this.state.teams);
         if(this.state.player === true || this.state.myPost === true) {
-            this.setState({player: false, sports: this.state.teamSports, myPost: false})
+            this.setState({player: false, sports: this.state.teamSports, myPost: false, filter: "Filters"})
         }
     };
 
     onMyPostsClicked = () => {
         console.log("hi im in my posts clicked")
         if(this.state.myPost === false) {
-            this.setState({myPost: true})
+            this.setState({myPost: true, filter: "Filters"})
         }
     };
 
