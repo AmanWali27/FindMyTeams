@@ -21,7 +21,8 @@ class Home extends React.Component {
             loaded: false,
             teamSports: [],
             playerSports: [],
-            sports: []
+            sports: [],
+            myPost: false
         };
     }
 
@@ -59,16 +60,23 @@ class Home extends React.Component {
     onPlayerClicked = () => {
         console.log(this.state.players);
         console.log("clicked player");
-        if(this.state.player === false) {
-            this.setState({player: true, sports: this.state.playerSports})
+        if(this.state.player === false || this.state.myPost === true) {
+            this.setState({player: true, sports: this.state.playerSports, myPost: false})
         }
         console.log(this.state.posts)
     };
 
     onTeamClicked = () => {
         console.log(this.state.teams);
-        if(this.state.player === true) {
-            this.setState({player: false, sports: this.state.teamSports})
+        if(this.state.player === true || this.state.myPost === true) {
+            this.setState({player: false, sports: this.state.teamSports, myPost: false})
+        }
+    };
+
+    onMyPostsClicked = () => {
+        console.log("hi im in my posts clicked")
+        if(this.state.myPost === false) {
+            this.setState({myPost: true})
         }
     };
 
@@ -118,15 +126,70 @@ class Home extends React.Component {
         }
     };
 
+    loadMyPlayers = ()=> {
+        console.log("in load posts")
+        let arr= this.state.players;
+        console.log("pre-arr is ");
+        console.log(arr);
+        let items =[];
+        if(this.state.loaded === false){
+            return (
+                <div>
+                    No posts found!
+                </div>
+            );
+        }else {
+            return Object.keys(arr).map((keyName, keyIndex) => {
+                if(this.state.user.uid === arr[keyName].uid)
+                return (
+                    <div>
+                        <PlayerCard obj={arr[keyName]} meta="User"/>
+                    </div>
+                );
+            })
+        }
+    }
+
+    loadMyTeams = ()=> {
+        console.log("in load posts")
+        let arr= this.state.teams;
+        console.log("pre-arr is ");
+        console.log(arr);
+        let items =[];
+        if(this.state.loaded === false){
+            return (
+                <div>
+                    No posts found!
+                </div>
+            );
+        }else {
+            return Object.keys(arr).map((keyName, keyIndex) => {
+                if(this.state.user.uid === arr[keyName].uid)
+                    return (
+                        <div>
+                            <PlayerCard obj={arr[keyName]} meta="User"/>
+                        </div>
+                    );
+            })
+        }
+    }
+
     retView = () => {
         console.log("retView");
-        if(this.state.player === true){
+        if(this.state.myPost === true) {
+            return (
+                <div className="ui equal width grid">
+                    {this.loadMyPlayers()}
+                    {this.loadMyTeams()}
+                </div>
+            );
+        }else if (this.state.player === true){
             return (
                 <div className="ui equal width grid">
                     {this.loadPlayers()}
                 </div>
             );
-        }else{
+        } else{
             return (
                 <div className="ui stackable equal width grid">
                     {this.loadTeams()}
@@ -150,6 +213,11 @@ class Home extends React.Component {
                             onClick={this.onTeamClicked}
                             className="link item">
                             Find a Team
+                        </button>
+                        <button
+                            onClick={this.onMyPostsClicked}
+                            className="link item">
+                            My Posts
                         </button>
                     </div>
                     <div className="ui compact menu">
