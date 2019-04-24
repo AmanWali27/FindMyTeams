@@ -82,6 +82,10 @@ class Home extends React.Component {
         }
     };
 
+    onClearClicked = () =>{
+        this.setState({filter: "Filters"})
+    }
+
     loadPlayers = () => {
         console.log("about to load players")
         let arr= this.state.players;
@@ -293,6 +297,13 @@ class Home extends React.Component {
                                 {this.showSports()}
                             </div>
                         </div>
+                    </div>
+                    <div className="ui compact menu">
+                        <button
+                            onClick={this.onClearClicked}
+                            className="link item">
+                            <i className="teal undo alternate icon"></i>
+                        </button>
                     </div>
                 </div>
 
