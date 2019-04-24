@@ -22,7 +22,7 @@ class Home extends React.Component {
             teamSports: [],
             playerSports: [],
             sports: [],
-            filer:"Filters",
+            filter:"Filters",
             myPost: false
         };
         //this.showSports=this.showSports.bind(this);
