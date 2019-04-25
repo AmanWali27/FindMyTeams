@@ -3,7 +3,7 @@ import { Container, Button, Link, darkColors, lightColors } from 'react-floating
 import Header from './Header';
 import addform from './Form'
 import playerFrom from './playerForm'
-import {auth} from "../fbase";
+import {auth, db} from "../fbase";
 import firebase from "firebase";
 import PlayerCard from "./playerCard";
 
@@ -57,6 +57,20 @@ class Home extends React.Component {
             })
         });
         this.setState({loaded: true})
+        const userRef = db.ref("/");
+        let temperature = userRef.child('Posts');
+        temperature.on("value", (snapshot) => {
+            const myData = snapshot.val();
+            console.log("My data is");
+            console.log(myData);
+            this.setState({
+                posts: myData,
+                teamSports: myData.TeamSports,
+                playerSports: myData.PlayerSports,
+                teams: myData.Teams,
+                players: myData.Players
+            })
+        });
         // console.log(this.state.players);
     }
 
@@ -205,7 +219,7 @@ class Home extends React.Component {
                     this.state.filter === arr[keyName].sport){
                     return (
                         <div>
-                            <PlayerCard obj={arr[keyName]} meta="Player" edit={true}/>
+                            <PlayerCard obj={arr[keyName]} meta="Team" edit={true}/>
                         </div>
                     );
                 }
