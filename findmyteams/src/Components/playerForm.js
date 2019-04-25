@@ -4,12 +4,13 @@ import { Form } from 'react-final-form';
 import { Field } from 'react-final-form-html5-validation';
 import {Redirect} from 'react-router-dom'
 import Header from "./Header";
+import firebase from "firebase";
 
-function validate(name, sport, lookingFor) {
+function validate(name, sport, lookingFor, phoneNumber) {
     return {
         name: name.length === 0,
         sport: sport.length === 0,
-        lookingFor: lookingFor.length === 0
+        lookingFor: lookingFor.length === 0,
     };
 }
 
@@ -25,13 +26,16 @@ class playerForm extends React.Component{
             lookingFor: "",
             info: "",
             uid: '',
+            phoneNumber: '',
         };
     }
 
     componentWillMount() {
+        const u = auth.currentUser;
+        console.log("u is: ");
+        console.log(u);
         auth.onAuthStateChanged((user) => {
             var curUser = auth.currentUser;
-            const u = auth.currentUser;
             console.log(u);
             console.log(u.uid);
             this.setState({uid: u.uid});
@@ -50,6 +54,20 @@ class playerForm extends React.Component{
                 this.setState({ user: {} });
                 localStorage.removeItem('user');
                 this.setState({auth: false});
+            }
+        });
+        const path='/Phone/'+this.state.user.uid+'/';
+        console.log("path is ")
+        console.log(path);
+        firebase.database().ref(path).once('value').then(response => {
+            // console.log("PRINTING OUT RESPONSE");
+            // console.log(response.val());
+            if(response.val().phoneNumber === ''){
+                console.log("NOT FOUND")
+            }else {
+                this.setState({
+                    phoneNumber: response.val().phoneNumber
+                })
             }
         });
     }
@@ -125,6 +143,8 @@ class playerForm extends React.Component{
 
     handleReset=(e)=>{
         e.preventDefault();
+        console.log("PRINTING OUT USER")
+        // console.log(this.state.user.);
         this.setState({
             name: this.state.user.displayName,
             teamName: "",
@@ -165,7 +185,7 @@ class playerForm extends React.Component{
     }
 
     render() {
-        const errors = validate(this.state.name, this.state.sport, this.state.lookingFor);
+        const errors = validate(this.state.name, this.state.sport, this.state.lookingFor, this.state.phoneNumber);
         const isDisabled = Object.keys(errors).some(x => errors[x]);
         return (
             <div className="form">

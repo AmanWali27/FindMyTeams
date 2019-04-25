@@ -38,7 +38,26 @@ class Login extends React.Component {
                     }).catch((error) => {
                         console.log(error)
                     });
-
+                    firebase.database().ref('/Phone/'+u+'/').once('value').then(response => {
+                        // console.log("PRINTING OUT RESPONSE");
+                        // console.log(response.val());
+                        if(response.val() === null){
+                            const userRef = db.ref("Phone/" + u + "/");
+                            userRef.set(
+                                {
+                                    phoneNumber: ''
+                                }
+                            ).then((data) => {
+                                console.log('form sent');
+                                //this.props.navigation.navigate('requests')
+                            }).catch((error) => {
+                                console.log(error)
+                            });
+                        }
+                        // this.setState({
+                        //     phoneNumber: response.val().phoneNumber
+                        // })
+                    });
                 } else {
                     this.setState({user: {}, auth: false})
                     localStorage.removeItem('user');

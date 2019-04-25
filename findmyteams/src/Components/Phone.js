@@ -21,8 +21,8 @@ class Phone extends React.Component {
         e.preventDefault();
         console.log("About to submit");
         const u=auth.currentUser.uid;
-        const userRef = db.ref("Users/" + u + "/");
-        userRef.update(
+        const userRef = db.ref("Phone/" + u + "/");
+        userRef.set(
             {
                 phoneNumber: this.state.phoneNumber
             }
