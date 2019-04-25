@@ -89,11 +89,18 @@ class PlayerCard extends React.Component{
         const u=auth.currentUser.uid;
         const r=this.props.obj.rid;
         const m=this.props.meta;
-        // console.log(r);
-        // console.log(m);
+        const s=this.props.obj.sid;
+        console.log("r is");
+        console.log(r);
+        console.log("m is ");
+        console.log(m);
+        console.log(this.props.obj)
         const userRef = db.ref("Posts/" + m + "s/" + r + "/");
         console.log(userRef);
-        userRef.remove()
+        userRef.remove();
+        const userRef2 = db.ref("Posts/" + m + "Sports/" + s + "/");
+        console.log(userRef2);
+        userRef2.remove();
     };
 
     deleteOrClose = () =>{
