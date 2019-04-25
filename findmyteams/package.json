@@ -8,6 +8,7 @@
     "firebase": "^5.9.4",
     "re-base": "^4.0.0",
     "react": "^16.8.6",
+    "react-awesome-modal": "^2.0.5",
     "react-dom": "^16.8.6",
     "react-final-form": "^4.1.0",
     "react-final-form-html5-validation": "^1.0.3",
