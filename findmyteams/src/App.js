@@ -84,10 +84,11 @@ class App extends React.Component{
                                 exact
                                 component={temp}
                             />
-                            <Route
+                            <PrivateRoute
                                 path='/phone'
-                                exact
+                                exact={true}
                                 component={phone}
+                                user={this.state.user}
                             />
 
                         </Switch>
