@@ -251,36 +251,22 @@ class Home extends React.Component {
         }
     };
 
-    showMyTeams = () =>{
-        let arr= this.state.teamSports;
-        const arrr= Object.keys(arr).map(function (keyName, keyIndex) {
-            return arr[keyName].sport
+    showSportsTest  = () => {
+        let arr1= this.state.playerSports;
+        console.log("My posts arrays are ");
+        console.log(arr1);
+        const ar1= Object.keys(arr1).map(function (keyName, keyIndex) {
+            return arr1[keyName].sport
         }, this);
-        console.log(arrr);
-        const uniqueNames = Array.from(new Set(arrr));
-        console.log(uniqueNames);
-        return uniqueNames.map((item, key) =>{
-            console.log("sports are");
-            console.log(item);
-            return (
-                <div>
-                    <button className="item"
-                            onClick = { () =>{this.setState({filter: item})} }
-                    >
-                        {item}
-                    </button>
-                </div>
-            );
-        })
-    };
-
-    showMyPlayers = () =>{
-        let arr= this.state.playerSports;
-        const arrr= Object.keys(arr).map(function (keyName, keyIndex) {
-            return arr[keyName].sport
+        let arr2= this.state.teamSports;
+        console.log(arr2);
+        const ar2= Object.keys(arr2).map(function (keyName, keyIndex) {
+            return arr2[keyName].sport
         }, this);
-        console.log(arrr);
-        const uniqueNames = Array.from(new Set(arrr));
+        console.log("Combined array is");
+        const newArr=ar1.concat(ar2);
+        console.log(newArr);
+        const uniqueNames = Array.from(new Set(newArr));
         console.log(uniqueNames);
         return uniqueNames.map((item, key) =>{
             console.log("sports are");
@@ -298,7 +284,6 @@ class Home extends React.Component {
     };
 
     showSports = () => {
-        // console.log("The arr TO SHOW isss");
         if(this.state.myPost === true) {
             if (this.state.loaded === false) {
                 return (
@@ -309,8 +294,7 @@ class Home extends React.Component {
             }
             return (
                 <div>
-                    {this.showMyPlayers()}
-                    {this.showMyTeams()}
+                    {this.showSportsTest()}
                 </div>
             );
         }
