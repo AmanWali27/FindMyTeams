@@ -346,11 +346,9 @@ class Home extends React.Component {
                           styles={{backgroundColor: lightColors.teal}}
                           icon="large inverted users icon"/>
                     <Button
-                        tooltip="Find players and teams!"
                         styles={{backgroundColor: darkColors.teal}}
                         icon="big inverted plus icon"
-                        rotate={false}
-                        onClick={() => alert('FAB Rocks!')}/>
+                        rotate={false}/>
                 </Container>
             </div>
         );
