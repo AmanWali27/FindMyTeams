@@ -220,8 +220,7 @@ class Home extends React.Component {
     };
 
     showSports = () => {
-        console.log("The arr isss");
-        console.log(this.state.playerSports);
+        // console.log("The arr TO SHOW isss");
         if(this.state.player === true){
             let arr= this.state.playerSports;
             if(this.state.loaded === false){
@@ -231,17 +230,25 @@ class Home extends React.Component {
                     </div>
                 );
             }else {
-                return Object.keys(arr).map(function (keyName, keyIndex) {
+                const arrr= Object.keys(arr).map(function (keyName, keyIndex) {
+                    return arr[keyName].sport
+                }, this);
+                console.log(arrr);
+                const uniqueNames = Array.from(new Set(arrr));
+                console.log(uniqueNames);
+                return uniqueNames.map((item, key) =>{
+                    console.log("sports are");
+                    console.log(item);
                     return (
                         <div>
                             <button className="item"
-                                    onClick = { () =>{this.setState({filter: arr[keyName].sport})} }
+                                    onClick = { () =>{this.setState({filter: item})} }
                             >
-                                {arr[keyName].sport}
-                            </button>
-                        </div>
+                                {item}
+                        </button>
+                    </div>
                     );
-                }, this)
+                })
             }
         }
         else{
@@ -253,17 +260,36 @@ class Home extends React.Component {
                     </div>
                 );
             }else {
-                return Object.keys(arr).map(function (keyName, keyIndex) {
+                const arrr= Object.keys(arr).map(function (keyName, keyIndex) {
+                    return arr[keyName].sport
+                }, this);
+                console.log(arrr);
+                const uniqueNames = Array.from(new Set(arrr));
+                console.log(uniqueNames);
+                return uniqueNames.map((item, key) =>{
+                    console.log("sports are");
+                    console.log(item);
                     return (
                         <div>
                             <button className="item"
-                                    onClick = { () =>{this.setState({filter: arr[keyName].sport})} }
+                                    onClick = { () =>{this.setState({filter: item})} }
                             >
-                                {arr[keyName].sport}
+                                {item}
                             </button>
                         </div>
                     );
-                }, this)
+                })
+                // return Object.keys(arr).map(function (keyName, keyIndex) {
+                //     return (
+                //         <div>
+                //             <button className="item"
+                //                     onClick = { () =>{this.setState({filter: arr[keyName].sport})} }
+                //             >
+                //                 {arr[keyName].sport}
+                //             </button>
+                //         </div>
+                //     );
+                // }, this)
             }
         }
     };
