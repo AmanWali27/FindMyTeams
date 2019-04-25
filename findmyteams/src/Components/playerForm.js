@@ -11,6 +11,7 @@ function validate(name, sport, lookingFor, phoneNumber) {
         name: name.length === 0,
         sport: sport.length === 0,
         lookingFor: lookingFor.length === 0,
+        phoneNumber: phoneNumber.length === 0
     };
 }
 
