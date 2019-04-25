@@ -110,6 +110,9 @@ class addForm extends React.Component{
         const refPush = db.ref("Posts/Teams/").push()
         const uniKey = refPush.key;
         const userRef = db.ref("Posts/Teams/" + uniKey + "/");
+        const refPush2 = db.ref("Posts/TeamSports/").push()
+        const uniKey2 = refPush2.key;
+        const userRef2 = db.ref("Posts/TeamSports/" + uniKey2 + "/");
         userRef.set(
             {
                 name: this.state.name,
@@ -118,7 +121,8 @@ class addForm extends React.Component{
                 lookingFor: this.state.lookingFor,
                 info: this.state.info,
                 uid: u,
-                rid: uniKey
+                rid: uniKey,
+                sid: uniKey2
             }
         ).then((data) => {
             console.log('ADDED');
@@ -126,9 +130,6 @@ class addForm extends React.Component{
         }).catch((error) => {
             console.log(error)
         });
-        const refPush2 = db.ref("Posts/TeamSports/").push()
-        const uniKey2 = refPush2.key;
-        const userRef2 = db.ref("Posts/TeamSports/" + uniKey2 + "/");
         userRef2.set(
             {
                 sport: this.state.sport,
@@ -190,6 +191,16 @@ class addForm extends React.Component{
             );
         }
     }
+
+    showPhoneError = () => {
+        if(this.state.phoneNumber.length === 0){
+            return (
+                <div className="ui pointing red basic label">
+                    Add a phone number
+                </div>
+            );
+        }
+    };
 
     render() {
         const errors = validate(this.state.name, this.state.sport, this.state.lookingFor, this.state.phoneNumber);
@@ -266,6 +277,7 @@ class addForm extends React.Component{
                                     Reset
                                 </button>
                             </div>
+                            {this.showPhoneError()}
                         </div>
                     </div>
                 </form>
