@@ -146,7 +146,7 @@ class PlayerCard extends React.Component{
                 <div className="ui teal raised card">
                     <div className="ui button"
                          data-inverted=""
-                         data-tooltip="Add users to your feed"
+                         data-tooltip="Click this card for contact info!"
                          data-position="top center"
                          onClick={() => this.openModal()}
                     >
