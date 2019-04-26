@@ -367,24 +367,24 @@ class Home extends React.Component {
                 <Header/>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
                     <div className="ui compact menu">
-                        <button
+                        <button style={{fontSize:'16px'}}
                             onClick={this.onPlayerClicked}
                             className="link item">
                             Find a Player
                         </button>
-                        <button
+                        <button style={{fontSize:'16px'}}
                             onClick={this.onTeamClicked}
                             className="link item">
                             Find a Team
                         </button>
-                        <button
+                        <button style={{fontSize:'16px'}}
                             onClick={this.onMyPostsClicked}
                             className="link item">
                             My Posts
                         </button>
                     </div>
                     <div className="ui compact menu">
-                        <div className="ui simple dropdown item">
+                        <div className="ui simple dropdown item" style={{fontSize:'16px'}}>
                             {this.state.filter}
                             <i className="dropdown icon"></i>
                             <div className="menu">
@@ -396,7 +396,7 @@ class Home extends React.Component {
                         <button
                             onClick={this.onClearClicked}
                             className="link item">
-                            <i className="teal undo alternate icon"></i>
+                            <i className="large grey times alternate icon"></i>
                         </button>
                     </div>
                 </div>

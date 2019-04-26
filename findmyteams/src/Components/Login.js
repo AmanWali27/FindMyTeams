@@ -98,12 +98,12 @@ class Login extends React.Component {
                         <div style={{paddingTop:5}}>
                         </div>
                         <div>
-                            <h2 className="ui horizontal divider teal header">
+                            <h2 style={{marginTop:30, marginBottom: 30, fontSize:30}} className="ui horizontal divider teal header">
                                 FindMyTeams
                             </h2>
                             <div className="ui floating message">
                                 <p>A social website for everyone that loves sports! Find someone to play
-                                    with so you're never forced to be lazy.
+                                    with so you can always play the game you love.
                                 </p>
                             </div>
                             <button
