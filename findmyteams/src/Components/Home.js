@@ -255,14 +255,30 @@ class Home extends React.Component {
         let arr1= this.state.playerSports;
         console.log("My posts arrays are ");
         console.log(arr1);
-        const ar1= Object.keys(arr1).map(function (keyName, keyIndex) {
-            return arr1[keyName].sport
+        const ui=this.state.user.uid;
+        const a1= Object.keys(arr1).map(function (keyName, keyIndex) {
+            console.log("UID ISSS");
+            console.log(arr1[keyName].uid);
+            if(arr1[keyName].uid === ui) {
+                return arr1[keyName].sport
+            }
         }, this);
+        const ar1 = a1.filter(function (el) {
+            return el != null;
+        });
+        console.log(ar1);
         let arr2= this.state.teamSports;
         console.log(arr2);
-        const ar2= Object.keys(arr2).map(function (keyName, keyIndex) {
-            return arr2[keyName].sport
+        const a2= Object.keys(arr2).map(function (keyName, keyIndex) {
+            console.log("UID TEAMS ISSS");
+            console.log(arr2[keyName].uid);
+            if(arr2[keyName].uid === ui) {
+                return arr2[keyName].sport
+            }
         }, this);
+        const ar2 = a2.filter(function (el) {
+            return el != null;
+        });
         console.log("Combined array is");
         const newArr=ar1.concat(ar2);
         console.log(newArr);
@@ -271,7 +287,8 @@ class Home extends React.Component {
         return uniqueNames.map((item, key) =>{
             console.log("sports are");
             console.log(item);
-            return (
+            // if(arr[keyName].uid === ui)
+                return (
                 <div>
                     <button className="item"
                             onClick = { () =>{this.setState({filter: item})} }
