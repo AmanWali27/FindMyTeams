@@ -1,12 +1,14 @@
 import React from 'react';
 import Modal from 'react-awesome-modal';
 import { auth, db } from './../fbase';
+import firebase from "firebase";
 
 class PlayerCard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            visible : false
+            visible : false,
+            phoneNumber: '',
         }
     }
 
@@ -75,10 +77,23 @@ class PlayerCard extends React.Component{
         return (
             <div className="description">
                 <i className="phone icon"></i>
-                Phone number: 1234567890
+                Phone number: {this.state.phoneNumber}
             </div>
         );
     };
+
+    componentDidMount() {
+    const path='/Phone/'+this.props.obj.uid+'/';
+    firebase.database().ref(path).once('value').then(response => {
+            const u = auth.currentUser.uid;
+            const userRef = db.ref("Phone/" + u + "/");
+            console.log("OBJECT FOR PHONE")
+            console.log(response.val().phoneNumber)
+            this.setState({
+                phoneNumber: response.val().phoneNumber
+            })
+        });
+    }
 
     tester = () => {
         console.log("IT CLICKED!!!!!");
@@ -129,11 +144,11 @@ class PlayerCard extends React.Component{
                     onClickAway={() => this.closeModal()}
                 >
                     <div className="ui center aligned header">
-                        <h1>{this.props.obj.name}</h1>
-                        <div className="ui large message">
+                        <h1 style={{fontSize:'25px', marginTop: 40}}>{this.props.obj.name}</h1>
+                        <div style={{fontSize:'17px', marginTop: 20, marginLeft:40, marginRight:40}} className="ui large message">
                             {this.additionalInfo()}
                         </div>
-                        <div className="ui large message">
+                        <div style={{fontSize:'17px', marginLeft:40, marginRight:40}} className="ui large message">
                             {this.showPhoneNumber()}
                         </div>
                         {this.deleteOrClose()}
