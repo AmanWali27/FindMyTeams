@@ -1,8 +1,15 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import Phone from './Phone'
+import Phone from './Phone';
+import {auth} from './../fbase';
 
 const Header = () =>{
+
+    const signOut = () => {
+        auth.signOut();
+        console.log("SIGNED OUT")
+    }
+
     return(
         <div className="ui teal inverted menu">
             <Link className="Header" to={`/home`}>
@@ -18,7 +25,7 @@ const Header = () =>{
                             <Link className="item" to={`/phone`}>
                                 Edit Phone Number
                             </Link>
-                            <div style={{fontSize:'17px'}} className="item">Sign Out</div>
+                            <div style={{fontSize:'17px'}} className="item" onClick={signOut}>Sign Out</div>
                         </div>
                     </div>
                 </div>

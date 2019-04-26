@@ -21,26 +21,36 @@ class App extends React.Component{
     componentWillMount() {
         auth.onAuthStateChanged((user) => {
             console.log("AUTHCHANGE");
-            var curUser = auth.currentUser;
-            // console.log(curUser);
-            // console.log(JSON.stringify(curUser));
-            // console.log(user);
-            const cuser=JSON.stringify(user);
-            // console.log(cuser.uid);
-            // console.log(user.displayName);
-            if (user) {
-                const USER = {
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email,
-                };
-                this.setState({auth:true});
-                this.setState({ user: user });
-                localStorage.setItem('user', JSON.stringify(USER))
-            } else {
-                this.setState({ user: {}, auth: false })
+            console.log(user);
+            if(user === null){
+                console.log("user is null");
                 localStorage.removeItem('user');
-                //this.setState({auth: false});
+                this.setState({user: {}});
+                return (
+                    <Redirect to="/"/>
+                );
+            }else {
+                var curUser = auth.currentUser;
+                // console.log(curUser);
+                // console.log(JSON.stringify(curUser));
+                // console.log(user);
+                const cuser = JSON.stringify(user);
+                // console.log(cuser.uid);
+                // console.log(user.displayName);
+                if (user) {
+                    const USER = {
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        email: user.email,
+                    };
+                    this.setState({auth: true});
+                    this.setState({user: user});
+                    localStorage.setItem('user', JSON.stringify(USER))
+                } else {
+                    this.setState({user: {}, auth: false})
+                    localStorage.removeItem('user');
+                    //this.setState({auth: false});
+                }
             }
         });
     }
