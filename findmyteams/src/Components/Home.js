@@ -217,20 +217,20 @@ class Home extends React.Component {
         console.log("retView");
         if(this.state.myPost === true) {
             return (
-                <div className="ui equal width grid">
+                <div className="ui equal width centered grid">
                     {this.loadMyPlayers()}
                     {this.loadMyTeams()}
                 </div>
             );
         }else if (this.state.player === true){
             return (
-                <div className="ui equal width grid">
+                <div className="ui equal width centered grid">
                     {this.loadPlayers()}
                 </div>
             );
         } else{
             return (
-                <div className="ui stackable equal width grid">
+                <div className="ui stackable equal width centered grid">
                     {this.loadTeams()}
                 </div>
             );

@@ -120,7 +120,7 @@ class PlayerCard extends React.Component{
 
     render () {
         return (
-            <div className="ui cards" style={{paddingTop: 5}}>
+            <div className="ui cards" style={{paddingTop: 30}}>
                 <Modal
                     visible={this.state.visible}
                     width="50%"
@@ -144,7 +144,7 @@ class PlayerCard extends React.Component{
                     </div>
                 </Modal>
                 <div className="ui teal raised card">
-                    <div className="ui button"
+                    <div className="ui basic button"
                          data-inverted=""
                          data-tooltip="Add users to your feed"
                          data-position="top center"
