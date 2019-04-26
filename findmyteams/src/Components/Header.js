@@ -25,7 +25,7 @@ const Header = () =>{
                             <Link className="item" to={`/phone`}>
                                 Edit Phone Number
                             </Link>
-                            <div style={{fontSize:'17px'}} className="item" onClick={signOut}>Sign Out</div>
+                            <a style={{fontSize:'17px'}} className="item" onClick={signOut}>Sign Out</a>
                         </div>
                     </div>
                 </div>

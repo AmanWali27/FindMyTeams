@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Button, Link, darkColors, lightColors } from 'react-floating-action-button';
+import {Container, Button, Link, darkColors, lightColors} from 'react-floating-action-button';
 import Header from './Header';
 import addform from './Form'
 import playerFrom from './playerForm'
@@ -14,7 +14,7 @@ class Home extends React.Component {
         const userr = JSON.parse(localStorage.getItem('user'));
         this.state = {
             auth: false,
-            user: userr ||  {},
+            user: userr || {},
             player: true,
             players: [],
             teams: [],
@@ -23,7 +23,7 @@ class Home extends React.Component {
             teamSports: [],
             playerSports: [],
             sports: [],
-            filter:"Filters",
+            filter: "Filters",
             myPost: false
         };
         //this.showSports=this.showSports.bind(this);
@@ -77,7 +77,7 @@ class Home extends React.Component {
     onPlayerClicked = () => {
         console.log(this.state.players);
         console.log("clicked player");
-        if(this.state.player === false || this.state.myPost === true) {
+        if (this.state.player === false || this.state.myPost === true) {
             this.setState({player: true, sports: this.state.playerSports, myPost: false, filter: "Filters"})
         }
         console.log(this.state.posts)
@@ -85,42 +85,42 @@ class Home extends React.Component {
 
     onTeamClicked = () => {
         console.log(this.state.teams);
-        if(this.state.player === true || this.state.myPost === true) {
+        if (this.state.player === true || this.state.myPost === true) {
             this.setState({player: false, sports: this.state.teamSports, myPost: false, filter: "Filters"})
         }
     };
 
     onMyPostsClicked = () => {
         console.log("hi im in my posts clicked")
-        if(this.state.myPost === false) {
+        if (this.state.myPost === false) {
             this.setState({myPost: true, filter: "Filters"})
         }
     };
 
-    onClearClicked = () =>{
+    onClearClicked = () => {
         this.setState({filter: "Filters"})
     }
 
     loadPlayers = () => {
         console.log("about to load players")
-        let arr= this.state.players;
+        let arr = this.state.players;
         console.log("pre-arr is ");
         console.log(arr);
-        if(this.state.loaded === false){
+        if (this.state.loaded === false) {
             return (
                 <div>
                     No posts found!
                 </div>
             );
-        }else {
-            return Object.keys(arr).map(function(keyName, keyIndex) {
-                if(this.state.filter === "Filters") {
+        } else {
+            return Object.keys(arr).map(function (keyName, keyIndex) {
+                if (this.state.filter === "Filters") {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Player" edit={false}/>
                         </div>
                     );
-                }else if(this.state.filter === arr[keyName].sport){
+                } else if (this.state.filter === arr[keyName].sport) {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Player" edit={false}/>
@@ -133,24 +133,24 @@ class Home extends React.Component {
 
     loadTeams = () => {
         console.log("about to load teams");
-        let arr= this.state.teams;
+        let arr = this.state.teams;
         console.log("pre-arr is ");
         console.log(arr);
-        if(this.state.loaded === false){
+        if (this.state.loaded === false) {
             return (
                 <div>
                     No posts found!
                 </div>
             );
-        }else {
-            return Object.keys(arr).map(function(keyName, keyIndex) {
-                if(this.state.filter === "Filters") {
+        } else {
+            return Object.keys(arr).map(function (keyName, keyIndex) {
+                if (this.state.filter === "Filters") {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Team" edit={false}/>
                         </div>
                     );
-                }else if(this.state.filter === arr[keyName].sport){
+                } else if (this.state.filter === arr[keyName].sport) {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Team" edit={false}/>
@@ -161,29 +161,29 @@ class Home extends React.Component {
         }
     };
 
-    loadMyPlayers = ()=> {
+    loadMyPlayers = () => {
         console.log("in load posts")
-        let arr= this.state.players;
+        let arr = this.state.players;
         console.log("pre-arr is ");
         console.log(arr);
-        let items =[];
-        if(this.state.loaded === false){
+        let items = [];
+        if (this.state.loaded === false) {
             return (
                 <div>
                     No posts found!
                 </div>
             );
-        }else {
+        } else {
             return Object.keys(arr).map((keyName, keyIndex) => {
-                if(this.state.user.uid === arr[keyName].uid &&
+                if (this.state.user.uid === arr[keyName].uid &&
                     this.state.filter === "Filters") {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Player" edit={true}/>
                         </div>
                     );
-                }else if(this.state.user.uid === arr[keyName].uid &&
-                    this.state.filter === arr[keyName].sport){
+                } else if (this.state.user.uid === arr[keyName].uid &&
+                    this.state.filter === arr[keyName].sport) {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Player" edit={true}/>
@@ -194,29 +194,29 @@ class Home extends React.Component {
         }
     }
 
-    loadMyTeams = ()=> {
+    loadMyTeams = () => {
         console.log("in load posts")
-        let arr= this.state.teams;
+        let arr = this.state.teams;
         console.log("pre-arr is ");
         console.log(arr);
-        let items =[];
-        if(this.state.loaded === false){
+        let items = [];
+        if (this.state.loaded === false) {
             return (
                 <div>
                     No posts found!
                 </div>
             );
-        }else {
+        } else {
             return Object.keys(arr).map((keyName, keyIndex) => {
-                if(this.state.user.uid === arr[keyName].uid &&
+                if (this.state.user.uid === arr[keyName].uid &&
                     this.state.filter === "Filters") {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Team" edit={true}/>
                         </div>
                     );
-                }else if(this.state.user.uid === arr[keyName].uid &&
-                    this.state.filter === arr[keyName].sport){
+                } else if (this.state.user.uid === arr[keyName].uid &&
+                    this.state.filter === arr[keyName].sport) {
                     return (
                         <div>
                             <PlayerCard obj={arr[keyName]} meta="Team" edit={true}/>
@@ -229,20 +229,20 @@ class Home extends React.Component {
 
     retView = () => {
         console.log("retView");
-        if(this.state.myPost === true) {
+        if (this.state.myPost === true) {
             return (
                 <div className="ui equal width centered grid">
                     {this.loadMyPlayers()}
                     {this.loadMyTeams()}
                 </div>
             );
-        }else if (this.state.player === true){
+        } else if (this.state.player === true) {
             return (
                 <div className="ui equal width centered grid">
                     {this.loadPlayers()}
                 </div>
             );
-        } else{
+        } else {
             return (
                 <div className="ui stackable equal width centered grid">
                     {this.loadTeams()}
@@ -251,8 +251,8 @@ class Home extends React.Component {
         }
     };
 
-    showSportsTest  = () => {
-        let arr1= this.state.playerSports;
+    showSportsTest = () => {
+        let arr1 = this.state.playerSports;
         console.log("My posts arrays are ");
         console.log(arr1);
         const ui=this.state.user.uid;
@@ -280,18 +280,20 @@ class Home extends React.Component {
             return el != null;
         });
         console.log("Combined array is");
-        const newArr=ar1.concat(ar2);
+        const newArr = ar1.concat(ar2);
         console.log(newArr);
         const uniqueNames = Array.from(new Set(newArr));
         console.log(uniqueNames);
-        return uniqueNames.map((item, key) =>{
+        return uniqueNames.map((item, key) => {
             console.log("sports are");
             console.log(item);
             // if(arr[keyName].uid === ui)
                 return (
                 <div>
                     <button className="item"
-                            onClick = { () =>{this.setState({filter: item})} }
+                            onClick={() => {
+                                this.setState({filter: item})
+                            }}
                     >
                         {item}
                     </button>
@@ -301,7 +303,7 @@ class Home extends React.Component {
     };
 
     showSports = () => {
-        if(this.state.myPost === true) {
+        if (this.state.myPost === true) {
             if (this.state.loaded === false) {
                 return (
                     <div>
@@ -316,58 +318,61 @@ class Home extends React.Component {
             );
         }
 
-        if(this.state.player === true){
-            let arr= this.state.playerSports;
-            if(this.state.loaded === false){
+        if (this.state.player === true) {
+            let arr = this.state.playerSports;
+            if (this.state.loaded === false) {
                 return (
                     <div>
                         No posts found!
                     </div>
                 );
-            }else {
-                const arrr= Object.keys(arr).map(function (keyName, keyIndex) {
+            } else {
+                const arrr = Object.keys(arr).map(function (keyName, keyIndex) {
                     return arr[keyName].sport
                 }, this);
                 console.log(arrr);
                 const uniqueNames = Array.from(new Set(arrr));
                 console.log(uniqueNames);
-                return uniqueNames.map((item, key) =>{
+                return uniqueNames.map((item, key) => {
                     console.log("sports are");
                     console.log(item);
                     return (
                         <div>
                             <button className="item"
-                                    onClick = { () =>{this.setState({filter: item})} }
+                                    onClick={() => {
+                                        this.setState({filter: item})
+                                    }}
                             >
                                 {item}
-                        </button>
-                    </div>
+                            </button>
+                        </div>
                     );
                 })
             }
-        }
-        else{
-            let arr= this.state.teamSports;
-            if(this.state.loaded === false){
+        } else {
+            let arr = this.state.teamSports;
+            if (this.state.loaded === false) {
                 return (
                     <div>
                         No posts found!
                     </div>
                 );
-            }else {
-                const arrr= Object.keys(arr).map(function (keyName, keyIndex) {
+            } else {
+                const arrr = Object.keys(arr).map(function (keyName, keyIndex) {
                     return arr[keyName].sport
                 }, this);
                 console.log(arrr);
                 const uniqueNames = Array.from(new Set(arrr));
                 console.log(uniqueNames);
-                return uniqueNames.map((item, key) =>{
+                return uniqueNames.map((item, key) => {
                     console.log("sports are");
                     console.log(item);
                     return (
                         <div>
                             <button className="item"
-                                    onClick = { () =>{this.setState({filter: item})} }
+                                    onClick={() => {
+                                        this.setState({filter: item})
+                                    }}
                             >
                                 {item}
                             </button>
@@ -378,34 +383,44 @@ class Home extends React.Component {
         }
     };
 
-    render () {
+    render() {
         return (
             <div>
                 <Header/>
                 <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
                     <div className="ui compact menu">
-                        <button style={{fontSize:'16px'}}
+                        <button
                             onClick={this.onPlayerClicked}
                             className="link item">
-                            Find a Player
+                            <a className="item" style={{fontSize: '17px', padding: 0, fontStyle:"bold"}}>
+                                Find a Player
+                            </a>
                         </button>
-                        <button style={{fontSize:'16px'}}
+                        <button
                             onClick={this.onTeamClicked}
                             className="link item">
-                            Find a Team
+                            <a className="item" style={{fontSize: '17px', padding: 0}}>
+                                Find a Team
+                            </a>
                         </button>
-                        <button style={{fontSize:'16px'}}
+                        <button
                             onClick={this.onMyPostsClicked}
                             className="link item">
-                            My Posts
+                            <a className="item" style={{fontSize: '17px', padding: 0}}>
+                                My Posts
+                            </a>
                         </button>
                     </div>
                     <div className="ui compact menu">
-                        <div className="ui simple dropdown item" style={{fontSize:'16px'}}>
-                            {this.state.filter}
+                        <div className="ui simple dropdown item">
+                            <a className="item" style={{fontSize: '17px', padding: 0}}>
+                                {this.state.filter}
+                            </a>
                             <i className="dropdown icon"></i>
                             <div className="menu">
-                                {this.showSports()}
+                                <a className="item" style={{fontSize: '17px', padding: 0}}>
+                                    {this.showSports()}
+                                </a>
                             </div>
                         </div>
                     </div>
